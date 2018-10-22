@@ -1,0 +1,29 @@
+  <p id="notice"><%= notice %></p>
+  <div class="row">
+    <div class="col-lg-8 col-md-10 mx-auto">
+      <% @blogposts.each do |blogpost| %>
+      <div class="post-preview">
+        <a href="post.html">
+          <h2 class="post-title">
+            <%= link_to blogpost.title, blog_post_path(blogpost) %>
+          </h2>
+          <h3 class="post-subtitle">
+            <%= blogpost.summary %>
+          </h3>
+        </a>
+        <p class="post-meta">Posted by
+          <%= blogpost.user.name %>
+      </div>
+      <hr>
+
+      <div class="clearfix">
+        <%= link_to 'Delete Post', blogpost, method: :delete, data: { confirm: 'Are you sure?' } %>
+      </div>
+      <% end %>
+
+      <!-- Pager -->
+      <div class="clearfix">
+        <a class="btn btn-primary float-right" href="#">Older Posts &rarr;</a>
+      </div>
+    </div>
+  </div>

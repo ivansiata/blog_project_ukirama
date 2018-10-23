@@ -1,3 +1,5 @@
+  <% provide(:image, "post-bg.jpg") %>
+
   <p id="notice"><%= notice %></p>
   <div class="row">
     <div class="col-lg-8 col-md-10 mx-auto">
@@ -14,16 +16,22 @@
         <p class="post-meta">Posted by
           <%= blogpost.user.name %>
       </div>
-      <hr>
+
+      <div class="clearfix">
+        <%= link_to 'Edit Post', edit_blog_post_path(blogpost) %>
+      </div>
 
       <div class="clearfix">
         <%= link_to 'Delete Post', blogpost, method: :delete, data: { confirm: 'Are you sure?' } %>
       </div>
+
+      <hr>
       <% end %>
 
       <!-- Pager -->
       <div class="clearfix">
-        <a class="btn btn-primary float-right" href="#">Older Posts &rarr;</a>
+        <%= link_to 'Create New Post', new_blog_post_path, :class => "btn btn-primary float-right" %>
       </div>
+      <br>
     </div>
   </div>

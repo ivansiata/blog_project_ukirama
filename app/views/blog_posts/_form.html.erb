@@ -1,0 +1,33 @@
+<%= form_for(@blogpost) do |f| %>
+
+  <% @blogpost.errors.full_messages.each do |error| %>
+  <div class="alert alert-danger">
+    <p> <%= error %></p>
+  </div>
+  <% end %>
+
+  <div class="form-group">
+  <p>
+    <%= f.label :title %>
+    <%= f.text_field :title, class: "form-control" %>
+  </p>
+  <p>
+    <%= f.label :summary %>
+    <%= f.text_field :summary, class: "form-control" %>
+  </p>
+  <p>
+    <%= f.label :content %>
+    <%= f.text_area :content, class: "form-control" %>
+  </p>
+  <p>
+    <%= f.label :users_id %>
+    <%= f.select :users_id, options_for_usersid, {:prompt => "Select One"}, class: "form-control" %>
+  </p>
+  <p>
+    <%= f.label :title_image_url %>
+    <%= f.text_field :title_image_url, class: "form-control" %>
+  </p>
+  </div>
+  <span><%= f.submit 'SAVE', class: 'btn btn-primary' %></span>
+  <%= link_to "Back to Blog Post", blog_posts_path, class: "btn btn-primary" %>
+<% end %>

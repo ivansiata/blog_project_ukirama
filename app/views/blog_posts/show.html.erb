@@ -1,3 +1,10 @@
-<p> <%= @blogpost.title %> </p>
+<% provide(:image, @blogpost.title_image_url) %>
+<% provide(:title, @blogpost.title) %>
+<% provide(:summary, @blogpost.summary) %>
+
+<p id="notice"><%= notice %></p>
+
 <p> <%= @blogpost.content %> </p>
-<p> <%= image_tag @blogpost.title_image_url %> </p>
+<p> Created By <%= @blogpost.user.name  %></p>
+
+<%= link_to "Back to Blog Posts", blog_posts_path, :class => "btn btn-primary" %>

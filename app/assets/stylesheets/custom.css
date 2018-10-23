@@ -1,0 +1,25 @@
+#notice {
+  text-align: center;
+}
+
+#indexUser .btn{
+  width: 100px;
+}
+
+#indexUser form{
+  width: 10px;
+  display: inline;
+}
+
+#action {
+  text-align:center;
+  width: 240px
+}
+
+th {
+  text-align: center;
+}
+
+.alert{
+  text-align: center
+}

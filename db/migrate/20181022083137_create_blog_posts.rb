@@ -1,9 +1,9 @@
 class CreateBlogPosts < ActiveRecord::Migration[5.2]
   def change
     create_table :blog_posts do |t|
-      t.string :title
-      t.string :summary
-      t.text :content
+      t.string :title, null: false
+      t.string :summary, null: false
+      t.text :content, null: false
       #t.integer :users_id
       t.string :title_image_url
 

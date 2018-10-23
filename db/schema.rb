@@ -16,9 +16,9 @@ ActiveRecord::Schema.define(version: 2018_10_22_083137) do
   enable_extension "plpgsql"
 
   create_table "blog_posts", force: :cascade do |t|
-    t.string "title"
-    t.string "summary"
-    t.text "content"
+    t.string "title", null: false
+    t.string "summary", null: false
+    t.text "content", null: false
     t.string "title_image_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -26,10 +26,11 @@ ActiveRecord::Schema.define(version: 2018_10_22_083137) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "name"
-    t.string "email"
+    t.string "name", null: false
+    t.string "email", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
   end
 
   add_foreign_key "blog_posts", "users", column: "users_id"

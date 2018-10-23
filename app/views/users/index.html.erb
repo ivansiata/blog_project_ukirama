@@ -1,28 +1,30 @@
-<p id="notice"><%= notice %></p>
+
 <h1>User List</h1>
 
 <table class="table table-bordered">
   <thead class="thead-dark">
     <tr>
-      <th scope="col">Name</th>
+      <th>Name</th>
       <th>Email</th>
-      <th>Operate</th>
+      <th>Action</th>
     </tr>
   </thead>
   <tbody>
     <% @users.each do |user| %>
     <tr>
-      <td> <%= user.name %> </td>
+      <td> <%= link_to user.name, user_path(user) %> </td>
       <td> <%= user.email %> </td>
-      <td>
-        <%= link_to "edit", edit_user_path(user) %>
+      <td id="action">
+        <%= link_to "edit", edit_user_path(user), :class => "btn btn-primary" %>
         <%= link_to "delete", user, method: :delete,
-                                  data: { confirm: "You sure?" } %>
+                                  data: { confirm: "You sure?" }, :class => "btn btn-danger" %>
       </td>
     </tr>
     <% end %>
   </tbody>
 </table>
+
+<%= link_to "Create new user", new_user_path, :class => "btn btn-primary" %>
 
 <ul class="users">
 

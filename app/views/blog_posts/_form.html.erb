@@ -19,10 +19,12 @@
     <%= f.label :content %>
     <%= f.text_area :content, class: "form-control" %>
   </p>
-  <p>
-    <%= f.label :users_id %>
-    <%= f.select :users_id, options_for_usersid, {:prompt => "Select One"}, class: "form-control" %>
-  </p>
+  <% if current_user.is_admin %>
+    <p>
+      <%= f.label :users_id %>
+      <%= f.select :users_id, options_for_usersid, {:prompt => "Select One"}, class: "form-control" %>
+    </p>
+  <% end %>
   <p>
     <%= f.label :title_image_url %>
     <%= f.text_field :title_image_url, class: "form-control" %>

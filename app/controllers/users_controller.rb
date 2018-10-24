@@ -1,8 +1,8 @@
 class UsersController < ApplicationController
   include UsersHelper
   before_action :logged_in_user, except: [:new, :create, :show]
-  before_action :check_permission, only: [:show, :edit, :update]
-
+  before_action :check_permission, only: [:show, :edit, :update, :destroy]
+  before_action :check_new_permission , only: [:new]
   def index
     @users = User.all
   end
@@ -24,7 +24,15 @@ class UsersController < ApplicationController
 
   def check_permission
     @user = User.find(params[:id])
-    if @current_user != @user
+
+    if current_user != @user && !current_user.is_admin
+      flash[:danger] = "Youre not permitted to access the page"
+      redirect_to users_path
+    end
+  end
+
+  def check_new_permission
+    if logged_in? && !current_user.is_admin
       flash[:danger] = "Youre not permitted to access the page"
       redirect_to users_path
     end

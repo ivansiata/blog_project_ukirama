@@ -1,7 +1,7 @@
 class BlogPostsController < ApplicationController
   include BlogPostsHelper
   before_action :logged_in_user, except: [:index, :show]
-  before_action :check_permission, only: [:show, :edit, :update]
+  before_action :check_permission, only: [:edit, :update, :destroy]
 
   def index
     @blogposts = BlogPost.all
@@ -18,6 +18,10 @@ class BlogPostsController < ApplicationController
   def create
     @blogpost = BlogPost.new(blogposts_params)
 
+    if @blogpost.users_id.nil?
+      @blogpost.users_id = current_user.id
+    end
+
     if @blogpost.save
       flash[:success] = "Blog Post '#{@blogpost.title}' created!"
       redirect_to blog_post_path(@blogpost)
@@ -29,9 +33,9 @@ class BlogPostsController < ApplicationController
 
   def check_permission
     @blogpost = BlogPost.find(params[:id])
-    if current_user.id != @blogpost.users_id
+    if current_user.id != @blogpost.users_id && !current_user.is_admin
       flash[:danger] = "Youre not permitted to access the page"
-      redirect_to users_path
+      redirect_to blog_posts_path
     end
   end
 

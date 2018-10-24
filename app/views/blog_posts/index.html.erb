@@ -17,21 +17,24 @@
           <%= blogpost.user.name %>
       </div>
 
-      <div class="clearfix">
-        <%= link_to 'Edit Post', edit_blog_post_path(blogpost) %>
-      </div>
+      <% if logged_in? %>
+        <div class="clearfix">
+          <%= link_to 'Edit Post', edit_blog_post_path(blogpost) %>
+        </div>
 
-      <div class="clearfix">
-        <%= link_to 'Delete Post', blogpost, method: :delete, data: { confirm: 'Are you sure?' } %>
-      </div>
+        <div class="clearfix">
+          <%= link_to 'Delete Post', blogpost, method: :delete, data: { confirm: 'Are you sure?' } %>
+        </div>
 
-      <hr>
+        <hr>
+      <% end %>
       <% end %>
 
-      <!-- Pager -->
+      <% if logged_in? %>
       <div class="clearfix">
         <%= link_to 'Create New Post', new_blog_post_path, :class => "btn btn-primary float-right" %>
       </div>
       <br>
+      <% end %>
     </div>
   </div>

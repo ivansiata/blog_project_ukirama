@@ -1,5 +1,7 @@
 class BlogPostsController < ApplicationController
   include BlogPostsHelper
+  before_action :logged_in_user, except: [:index, :show]
+  before_action :check_permission, only: [:show, :edit, :update]
 
   def index
     @blogposts = BlogPost.all
@@ -17,12 +19,22 @@ class BlogPostsController < ApplicationController
     @blogpost = BlogPost.new(blogposts_params)
 
     if @blogpost.save
-      flash.notice = "Blog Post '#{@blogpost.title}' created!"
+      flash[:success] = "Blog Post '#{@blogpost.title}' created!"
       redirect_to blog_post_path(@blogpost)
     else
       render 'new'
     end
   end
+
+
+  def check_permission
+    @blogpost = BlogPost.find(params[:id])
+    if current_user.id != @blogpost.users_id
+      flash[:danger] = "Youre not permitted to access the page"
+      redirect_to users_path
+    end
+  end
+
 
   def edit
     @blogpost = BlogPost.find(params[:id])
@@ -32,7 +44,7 @@ class BlogPostsController < ApplicationController
     @blogpost = BlogPost.find(params[:id])
 
     if @blogpost.update(blogposts_params)
-      flash.notice = "Blog Post '#{@blogpost.title}' was updated!"
+      flash[:success] = "Blog Post '#{@blogpost.title}' was updated!"
       redirect_to blog_post_path(@blogpost)
     else
       render 'edit'
@@ -42,7 +54,7 @@ class BlogPostsController < ApplicationController
   def destroy
     @blogpost = BlogPost.find(params[:id])
     @blogpost.destroy
-    flash.notice = "Post '#{@blogpost.title}' destroyed!"
+    flash[:success] = "Post '#{@blogpost.title}' destroyed!"
     redirect_to blog_posts_path
   end
 end

@@ -1,0 +1,4 @@
+name,email,password,is_admin
+Ivan,ivansiata@gmail.com,lala,TRUE
+UserA,aaa@aaa.com,aaa,FALSE
+,bbb@bbb.com,bbb,FALSE
